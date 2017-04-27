@@ -1,7 +1,6 @@
 
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { IPoolConfig, IMySql, IPool, IConnection } from 'mysql';
 import * as Promise from 'bluebird';
 
 import { MysqlConnection } from './easy-mysql-promise';
