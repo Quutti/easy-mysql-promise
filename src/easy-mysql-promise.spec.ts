@@ -72,63 +72,68 @@ describe("Package: easy-mysql-promise", () => {
 
                 const TEST_QUERY = 'SELECT * FROM test';
 
+                let stub, spy;
+
+                beforeEach(() => {
+                    stub = null;
+                    spy = null;
+                });
+
+                afterEach(() => {
+                    if (spy) {
+                        spy.restore();
+                    }
+                    if (stub) {
+                        stub.restore();
+                    }
+                })
+
                 it("should return a Promise", () => {
                     expect(mysqlConn.query("SELECT * FROM test", []) instanceof Promise).to.be.true;
                 });
 
                 it("should call connections query method with passed arguments", (done) => {
-                    let spy = sinon.spy(connectionMock, 'query');
+                    spy = sinon.spy(connectionMock, 'query');
                     mysqlConn.query(TEST_QUERY, [])
                         .then(() => {
                             expect(spy.calledWith(TEST_QUERY, [])).to.be.true;
-                            spy.restore();
                             done();
                         })
                         .catch(err => done(err));
                 });
 
                 it("should call release acquired connection", (done) => {
-                    let spy = sinon.spy(connectionMock, 'release');
+                    spy = sinon.spy(connectionMock, 'release');
                     mysqlConn.query(TEST_QUERY, [])
                         .then(() => {
                             expect(spy.called).to.be.true;
-                            spy.restore();
                             done();
                         })
                         .catch(err => done(err));
                 });
 
-                it("should return rejected promise if query has error", (done) => {
+                it("should return resolved promise if query has no errors", (done) => {
                     const RES_STRING = "A RESULT!";
 
-                    let stub = sinon.stub(connectionMock, 'query').callsFake((query, params, cb) => cb(null, RES_STRING));
-                    let prom: Promise<any> = mysqlConn.query(TEST_QUERY, [])
+                    stub = sinon.stub(connectionMock, 'query').callsFake((query, params, cb) => cb(null, RES_STRING));
+                    mysqlConn.query(TEST_QUERY, [])
                         .then(res => {
                             expect(res).to.eq(RES_STRING);
-
-                            stub.restore();
                             done();
                         })
-                        .catch(err => {
-                            expect(false).to.be.true; // Should never come here
-                            stub.restore();
-                            done();
-                        });
+                        .catch(err => done(err));
                 });
 
                 it("should return rejected promise if connection has error", (done) => {
                     const ERROR_STRING = "AN ERROR MONSTER!";
 
-                    let stub = sinon.stub(mysqlPoolMock, 'getConnection').callsFake(cb => cb(ERROR_STRING, null));
+                    stub = sinon.stub(mysqlPoolMock, 'getConnection').callsFake(cb => cb(ERROR_STRING, null));
                     let prom: Promise<any> = mysqlConn.query(TEST_QUERY, [])
                         .then(() => {
-                            expect(false).to.be.true; // Should never come here
-                            stub.restore();
-                            done();
+                            throw 'continue';
                         })
                         .catch(err => {
                             expect(err).to.eq(ERROR_STRING);
-                            stub.restore();
                             done();
                         });
                 });
@@ -136,16 +141,13 @@ describe("Package: easy-mysql-promise", () => {
                 it("should return rejected promise if query has error", (done) => {
                     const ERROR_STRING = "AN ANOTHER ERROR MONSTER!";
 
-                    let stub = sinon.stub(connectionMock, 'query').callsFake((query, params, cb) => cb(ERROR_STRING, null));
+                    stub = sinon.stub(connectionMock, 'query').callsFake((query, params, cb) => cb(ERROR_STRING, null));
                     let prom: Promise<any> = mysqlConn.query(TEST_QUERY, [])
                         .then(() => {
-                            expect(false).to.be.true; // Should never come here
-                            stub.restore();
-                            done();
+                            throw 'continue';
                         })
                         .catch(err => {
                             expect(err).to.eq(ERROR_STRING);
-                            stub.restore();
                             done();
                         });
                 });
