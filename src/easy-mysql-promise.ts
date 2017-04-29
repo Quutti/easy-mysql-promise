@@ -58,7 +58,7 @@ export class MysqlConnection {
      */
     query(query: string, params: any[]): Promise<any> {
         return this.acquireConnection()
-            .then(connection => {
+            .then((connection: MySQL.IConnection) => {
                 return new Promise((resolve, reject) => {
                     connection.query(query, params, (err, result) => {
                         connection.release();
@@ -75,7 +75,7 @@ export class MysqlConnection {
      */
     private acquireConnection(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.pool.getConnection((err, connection) => {
+            this.pool.getConnection((err, connection: MySQL.IConnection) => {
                 err ? reject(err) : resolve(connection);
             });
         });
