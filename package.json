@@ -1,9 +1,9 @@
 {
-  "name": "easy-mysql-promise",
+  "name": "easy-mysql-with-promise",
   "version": "1.0.0",
   "description": "Simple and easy-to-use wrapper for mysqljs/mysql package. Works with Promises only.",
-  "main": "./dist/easy-mysql-promise.js",
-  "typings": "./dist/easy-mysql-promise.d.ts",
+  "main": "./dist/easy-mysql-with-promise.js",
+  "typings": "./dist/easy-mysql-with-promise.d.ts",
   "scripts": {
     "test": "mocha --compilers ts:ts-node/register src/**/*.spec.ts",
     "build": "tsc"
@@ -12,7 +12,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Quutti/easy-mysql-promise.git"
+    "url": "https://github.com/Quutti/easy-mysql-with-promise.git"
   },
   "dependencies": {
     "bluebird": "^3.5.0",

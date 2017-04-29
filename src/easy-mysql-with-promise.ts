@@ -2,7 +2,7 @@
 import * as MySQL from 'mysql';
 import * as Promise from 'bluebird';
 
-const ERROR_PREFIX = 'easy-mysql-promise: ';
+const ERROR_PREFIX = 'easy-mysql-with-promise: ';
 
 let mysqlConnection: MysqlConnection = null;
 

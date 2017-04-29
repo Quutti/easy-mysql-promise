@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 import * as Promise from 'bluebird';
 
-import { MysqlConnection } from './easy-mysql-promise';
+import { MysqlConnection } from './easy-mysql-with-promise';
 
 const connectionMock: any = {
     query(query, params, cb): any { cb(null, {}) },
@@ -19,7 +19,7 @@ const mysqlMock: any = {
     createPool(): any { return mysqlPoolMock; },
 };
 
-describe("Package: easy-mysql-promise", () => {
+describe("Package: easy-mysql-with-promise", () => {
 
     describe("Class: MysqlConnection", () => {
 
