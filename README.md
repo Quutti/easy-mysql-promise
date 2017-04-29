@@ -5,6 +5,9 @@ This package is a simple wrapper for mysqljs/mysql library. Package uses connect
 
 Start with running `npm install easy-mysql-promise --save` and on startup of your app import methods and init module.
 
+All options can be found from this source:
+https://github.com/mysqljs/mysql#pooling-connections
+
 ```js
 import * as DB from 'easy-mysql-promise';
 
@@ -14,7 +17,7 @@ DB.init({
     user: 'mysql-username',
     password: 'mysql-pass',
     database: 'name-of-database',
-    connectionLimit: 50 // max concurrent connection within pool
+    connectionLimit: 50 // defaults to 50
 });
 ```
 
