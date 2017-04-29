@@ -1,5 +1,7 @@
 # easy-mysql-promise
-This package is a simple wrapper for mysqljs/mysql library. Package uses connection pool and releases connections after every query. Works with Promises only.
+This package is a simple wrapper for mysqljs/mysql package. Package uses connection pool and releases connections after every query. Works with Promises only.
+
+The main reason for this package is to be really easy-to-use and set-up configuration for using MySQL database in NPM project. There might be situations when this package is not enough for your needs. In these cases, I advice you to go with original mysqljs/mysql package.
 
 ## Quick start
 
