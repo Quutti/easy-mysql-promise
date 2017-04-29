@@ -1,7 +1,7 @@
 {
   "name": "easy-mysql-promise",
   "version": "1.0.0",
-  "description": "Simple utility to wrap mysql connection pool and return query results with promises.",
+  "description": "Simple and easy-to-use wrapper for mysqljs/mysql package. Works with Promises only.",
   "main": "./dist/easy-mysql-promise.js",
   "typings": "./dist/easy-mysql-promise.d.ts",
   "scripts": {
